@@ -7,7 +7,7 @@ import json
 
 app = Flask(__name__)
 
-model = joblib.load('churn_model.pkl')
+model = joblib.load('logistic_model.pkl')
 
 # OpenAPI definition
 
