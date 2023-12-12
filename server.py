@@ -9,9 +9,10 @@ app = Flask(__name__)
 
 model = joblib.load('churn_model.pkl')
 
+# OpenAPI definition
+
 api = Api(app, version='1.0', title='Customer Churn Prediction API',
           description='A simple API for predicting customer churn')
-
 customer_model = api.model('Customer', {
     'SeniorCitizen': fields.Integer(required=True, description='Senior Citizen binary indicator (0 or 1)'),
     'Partner': fields.Integer(required=True, description='Partner binary indicator (0 or 1)'),
@@ -56,6 +57,8 @@ prediction_model = api.model('Prediction', {
 
 ns = api.namespace('predictions', description='Churn Predictions')
 
+# Prediction endpoint
+
 @ns.route('/predict')
 class Predict(Resource):
     @api.doc(responses={200: 'Success', 400: 'Validation Error'})
@@ -73,6 +76,7 @@ class Predict(Resource):
             'hard_prediction': int(hard_prediction[0])
         }
 
+# Generates random data that the model could consume
 def generate_random_json():
     data = {
         'SeniorCitizen': random.randint(0, 1),
@@ -138,6 +142,7 @@ def generate_random_json():
     return json.dumps(data, indent=4)
 
 
+# Random data endpoint
 @app.route('/rnd', methods=['GET'])
 def rnd():
     return generate_random_json()
