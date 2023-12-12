@@ -1,0 +1,9 @@
+name: churn
+channels:
+  - defaults
+dependencies:
+  - python=3.10.12
+  - flask
+  - scikit-learn==1.2.2
+  - pandas
+prefix: /Users/Arnas.Kazlauskas/miniconda3/envs/churn
